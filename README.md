@@ -1,5 +1,11 @@
 # Dooki API PHP SDK
 
+SDK oficial da API da [Dooki](http://www.dooki.com.br).
+
+## Instalação via composer
+
+`composer require dooki/dooki-php-sdk`
+
 ## Change log
 
 Consulte [CHANGELOG](.github/CHANGELOG.md) para obter mais informações sobre o que mudou recentemente.
