@@ -30,7 +30,11 @@
 	"authors": [
 		{
 			"name": "Lucas Colette",
-			"email": "lucas@bubb.com.b"
+			"email": "lucas@bubb.com.br"
+		},
+		{
+			"name": "Welder Lourenço",
+			"email": "welderlourenco@gmail.com"
 		}
 	],
 	"minimum-stability": "dev"
