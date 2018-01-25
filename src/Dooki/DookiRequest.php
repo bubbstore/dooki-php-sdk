@@ -14,9 +14,9 @@ class DookiRequest extends DookiAuth
 
     private $headers = array();
 
-    private $queries = array();
+    private $query = array();
 
-    private $jsons = array();
+    private $json = array();
 
     /**
      * DookiRequest constructor.
@@ -85,9 +85,9 @@ class DookiRequest extends DookiAuth
     }
 
     /**
-     * Sets a body param to the queries or jsons property.
+     * Sets a body param to the query or json property.
      * 
-     * @param string $property {@link 'queries'} or {@link 'jsons'}
+     * @param string $property {@link 'query'} or {@link 'json'}
      * @param string $key
      * @param string $name
      *
@@ -97,7 +97,7 @@ class DookiRequest extends DookiAuth
     {
         if ( ! property_exists($this, $property))
         {
-            throw new DookiRequestException($property . ' is not a valid property for DookiRequest. Use headers, queries or jsons.');
+            throw new DookiRequestException($property . ' is not a valid property for DookiRequest. Use headers, query or json.');
         }
 
         $this->$property[$key] = $name;
@@ -111,7 +111,7 @@ class DookiRequest extends DookiAuth
     public function setBody(array $body)
     {
         foreach ($body as $key => $param) {
-            $this->setBodyParam(($this->getMethod() == 'GET' ? 'queries' : 'jsons'), $key, $param);
+            $this->setBodyParam(($this->getMethod() == 'GET' ? 'query' : 'json'), $key, $param);
         }
     }
 
@@ -156,8 +156,8 @@ class DookiRequest extends DookiAuth
     {
         return [
             'headers' => $this->headers,
-            'query' => $this->queries,
-            'json' => $this->jsons
+            'query' => $this->query,
+            'json' => $this->json
         ];
     }
 
@@ -181,18 +181,20 @@ class DookiRequest extends DookiAuth
         $this->setBody($body);
 
         $client = new Client();
-
+        dd($this->getBody());
         $request = $client->request($this->getMethod(), $this->getApi(), $this->getBody());
 
         dd($request);
 
         dd($http, $route, $params);
     }
-   
+    
+    /**
+     * @return void
+     */
     public function skipCache()
     {
-        //?skipCache=true
-        dd('skipCache');
+        $this->setBodyParam('query', 'skipCache', 'true');
 
         return $this;
     }

@@ -39,6 +39,6 @@ class Dooki
      */
     public function __call($name, array $arguments)
     {
-        call_user_func_array(array($this->request, $name), $arguments);
+        return call_user_func_array(array($this->request, $name), $arguments);
     }
 }
