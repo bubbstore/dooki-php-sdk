@@ -10,8 +10,7 @@ class Dooki
      * Create an instance of Dooki choosing the environment where the requests will be send.
      *
      * @param string $jwt The user's current JSON Web Token.
-     * @param DookiRequest $environment 
-     *                     The environment: {@link DookiRequest::production()} or {@link DookiRequest::sandbox()} or {@link DookiRequest::local()}
+     * @param DookiRequest $environment {@link DookiRequest::production()} or {@link DookiRequest::sandbox()} or {@link DookiRequest::local()}
      */
     public function __construct($jwt, DookiRequest $environment = null)
     {

@@ -27,13 +27,12 @@ class DookiAuth
     }
 
     /**
-     * @param string $email
-     * @param string $passw
+     * @param array $params
      *
-     * @throws DookiRequestException
+     * @throws Dooki\DookiRequestException if anything gets wrong.
      */
-    public function login($email, $passw)
+    public function login(array $params)
     {
-        dd($email, $passw);
+        $this->request('POST', 'auth/login', $params);
     }
 }
