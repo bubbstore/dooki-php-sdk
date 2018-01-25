@@ -23,7 +23,12 @@ class Dooki
         $this->request = $environment;
 
         if (! is_null($jwt)) {
-            $this->request->setJwt($jwt);
+            $this->request->setAuthToken($jwt);
+
+            $this->request->setAuthTokenType('bearer');
+
+            // Also works as a test for the given token.
+            $this->request->setMe($this->request->request('POST', '/auth/me')->getData());
         }
     }
     

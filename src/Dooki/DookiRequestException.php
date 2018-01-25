@@ -6,14 +6,24 @@ use Exception;
 
 class DookiRequestException extends Exception
 {
-    private $statusCode;
+    private $dookiStatusCode;
+
+    private $dookiMessage;
 
     /**
      * @return int
      */
-    public function getStatusCode()
+    public function getDookiStatusCode()
     {
-        return $this->statusCode;
+        return $this->dookiStatusCode;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDookiMessage()
+    {
+        return $this->dookiMessage;
     }
 
     /**
@@ -24,7 +34,7 @@ class DookiRequestException extends Exception
      */
     public function __construct($message, $statusCode = 0)
     {
-        $this->statusCode = $statusCode;
+        $this->dookiStatusCode = $statusCode;
 
         parent::__construct($message);
     }

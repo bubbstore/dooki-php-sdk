@@ -157,8 +157,14 @@ class DookiRequest extends DookiAuth
      */
     public function getBody()
     {
+        $headers = array();
+
+        if ($this->getAuthTokenType() == 'bearer') {
+            $headers['Authorization'] = 'Bearer ' . $this->getAuthToken();
+        }
+
         return [
-            'headers' => $this->headers,
+            'headers' => array_merge($this->headers, $headers),
             'query' => $this->query,
             'json' => $this->json
         ];
