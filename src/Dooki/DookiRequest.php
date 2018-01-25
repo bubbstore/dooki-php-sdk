@@ -2,6 +2,10 @@
 
 namespace Dooki;
 
+use Dooki\DookiRequest;
+use Dooki\DookiRequestException;
+use Dooki\DookiResponse;
+
 use GuzzleHttp\Client as Client;
 
 class DookiRequest extends DookiAuth
@@ -142,7 +146,7 @@ class DookiRequest extends DookiAuth
      */
     public function getApi()
     {
-        // Handles merchant aliases and other params.
+        // Handles merchant aliases and other url params.
 
         return $this->api . $this->route;
     }
@@ -159,6 +163,16 @@ class DookiRequest extends DookiAuth
             'query' => $this->query,
             'json' => $this->json
         ];
+    }
+    
+    /**
+     * @return void
+     */
+    public function skipCache()
+    {
+        $this->setBodyParam('query', 'skipCache', 'true');
+
+        return $this;
     }
 
     /**
@@ -181,21 +195,9 @@ class DookiRequest extends DookiAuth
         $this->setBody($body);
 
         $client = new Client();
-        dd($this->getBody());
+
         $request = $client->request($this->getMethod(), $this->getApi(), $this->getBody());
 
-        dd($request);
-
-        dd($http, $route, $params);
-    }
-    
-    /**
-     * @return void
-     */
-    public function skipCache()
-    {
-        $this->setBodyParam('query', 'skipCache', 'true');
-
-        return $this;
+        return new DookiResponse($request->getBody()->getContents());
     }
 }

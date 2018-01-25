@@ -4,27 +4,11 @@ namespace Dooki;
 
 class DookiAuth
 {
-    private $jwt;
+    private $token;
 
-    /**
-     * Sets the DookiAuth's JSON Web Token.
-     * 
-     * @param string $jwt
-     */
-    public function setJwt($jwt)
-    {
-        $this->jwt = $jwt;
-    }
+    private $type;
 
-    /**
-     * Gets the DookiAuth's JSON Web Token.
-     * 
-     * @return string
-     */
-    public function getJwt()
-    {
-        return $this->jwt;
-    }
+    private $expiresIn;
 
     /**
      * @param array $params
@@ -33,6 +17,8 @@ class DookiAuth
      */
     public function login(array $params)
     {
-        $this->request('POST', 'auth/login', $params);
+        $response = $this->request('POST', 'auth/login', $params);
+
+        dd($response->getResponse());
     }
 }
