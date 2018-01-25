@@ -58,14 +58,14 @@ class DookiRequest extends DookiAuth
 
     /**
      * Sets the request's HTTP method.
-     * 
+     *
      * @param string $method
      *
      * @throws Dooki\DookiRequestException if anything gets wrong.
      */
     public function setMethod($method)
     {
-        if ( ! ($method == 'GET' || $method == 'POST' || $method == 'PUT' || $method == 'DELETE')) {
+        if (! ($method == 'GET' || $method == 'POST' || $method == 'PUT' || $method == 'DELETE')) {
             throw new DookiRequestException($method . ' is not a valid HTTP method. Use GET, POST, PUT or DELETE instead.');
         }
 
@@ -74,14 +74,14 @@ class DookiRequest extends DookiAuth
 
     /**
      * Sets the request's API route.
-     * 
+     *
      * @param string $route
      *
      * @throws Dooki\DookiRequestException if anything gets wrong.
      */
     public function setRoute($route)
     {
-        if ( ! ($route[0] == '/')) {
+        if (! ($route[0] == '/')) {
             $route = '/' . $route;
         }
 
@@ -90,7 +90,7 @@ class DookiRequest extends DookiAuth
 
     /**
      * Sets a body param to the query or json property.
-     * 
+     *
      * @param string $property {@link 'query'} or {@link 'json'}
      * @param string $key
      * @param string $name
@@ -99,8 +99,7 @@ class DookiRequest extends DookiAuth
      */
     public function setBodyParam($property, $key, $name)
     {
-        if ( ! property_exists($this, $property))
-        {
+        if (! property_exists($this, $property)) {
             throw new DookiRequestException($property . ' is not a valid property for DookiRequest. Use headers, query or json.');
         }
 
@@ -109,7 +108,7 @@ class DookiRequest extends DookiAuth
 
     /**
      * Sets the request's body.
-     * 
+     *
      * @param array $body
      */
     public function setBody(array $body)
@@ -121,7 +120,7 @@ class DookiRequest extends DookiAuth
 
     /**
      * Gets the request's HTTP method.
-     * 
+     *
      * @return string
      */
     public function getMethod()
@@ -131,7 +130,7 @@ class DookiRequest extends DookiAuth
 
     /**
      * Gets the request's API route.
-     * 
+     *
      * @return string
      */
     public function getRoute()
@@ -141,7 +140,7 @@ class DookiRequest extends DookiAuth
 
     /**
      * Gets the request's API.
-     * 
+     *
      * @return string
      */
     public function getApi()
@@ -153,7 +152,7 @@ class DookiRequest extends DookiAuth
 
     /**
      * Gets the request's body.
-     * 
+     *
      * @return array
      */
     public function getBody()
@@ -181,7 +180,7 @@ class DookiRequest extends DookiAuth
      * @param string $method
      * @param string $route
      * @param array $body
-     * 
+     *
      * @throws Dooki\DookiRequestException if anything gets wrong.
      *
      * @return array

@@ -12,7 +12,7 @@ class DookiResponse
 
     /**
      * Sets Dooki's entire response.
-     * 
+     *
      * @param array $response
      */
     private function setResponse(array $response)
@@ -22,7 +22,7 @@ class DookiResponse
 
     /**
      * Sets Dooki data key's data.
-     * 
+     *
      * @param array $data
      */
     private function setData(array $data)
@@ -48,7 +48,7 @@ class DookiResponse
 
     /**
      * Gets Dooki's entire response.
-     * 
+     *
      * @return array
      */
     public function getResponse(): array
@@ -58,7 +58,7 @@ class DookiResponse
 
     /**
      * Gets Dooki data key's data.
-     * 
+     *
      * @return array
      */
     public function getData(): array

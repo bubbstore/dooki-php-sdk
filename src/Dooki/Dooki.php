@@ -14,8 +14,7 @@ class Dooki
      */
     public function __construct($jwt, DookiRequest $environment = null)
     {
-        if (is_null($environment))
-        {
+        if (is_null($environment)) {
             $environment = $jwt;
 
             $jwt = null;
@@ -23,17 +22,16 @@ class Dooki
 
         $this->request = $environment;
 
-        if ( ! is_null($jwt))
-        {
+        if (! is_null($jwt)) {
             $this->request->setJwt($jwt);
         }
     }
     
     /**
-     * Magic __call method is triggered whenever an unexisting method is called in a class. This is 
+     * Magic __call method is triggered whenever an unexisting method is called in a class. This is
      * the case whenever any DookiRequest's or DookiAuth's method is called from the Dooki wrapper.
      * Its job is to redirect the method call to the DookiRequest's class.
-     * 
+     *
      * @param string $name
      * @param array $arguments
      */
