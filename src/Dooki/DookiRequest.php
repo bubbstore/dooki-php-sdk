@@ -2,10 +2,10 @@
 
 namespace Dooki;
 
+use Carbon\Carbon;
 use Dooki\DookiRequest;
 use Dooki\DookiRequestException;
 use Dooki\DookiResponse;
-
 use GuzzleHttp\Client as Client;
 
 class DookiRequest extends DookiAuth
@@ -21,6 +21,8 @@ class DookiRequest extends DookiAuth
     private $query = array();
 
     private $json = array();
+
+    private $merchant;
 
     /**
      * DookiRequest constructor.
@@ -119,6 +121,80 @@ class DookiRequest extends DookiAuth
     }
 
     /**
+     * Sets the request's merchant alias.
+     * 
+     * @param string $alias
+     */
+    public function setMerchant($alias)
+    {
+        $alias = ltrim($alias, '/');
+
+        $this->merchant = '/' . $alias;
+    }
+    
+    /**
+     * {@link ->search()}
+     * @return void
+     */
+    public function search(array $search)
+    {
+        $searchString = '';
+
+        foreach ($search as $field => $value) {
+            $searchString .= $field . ':' . $value;
+            if(! (next($search) === false)) {
+                $searchString .= ';';
+            }            
+        }
+        
+        $this->setBodyParam('query', 'search', $searchString);
+
+        return $this;
+    }
+    
+    /**
+     * {@link ->searchFields()}
+     * @return void
+     */
+    public function searchFields(array $searchFields)
+    {
+        $searchFieldsString = '';
+
+        foreach ($searchFields as $field => $value) {
+            $searchFieldsString .= $field . ':' . $value;
+            if(! (next($searchFields) === false)) {
+                $searchFieldsString .= ';';
+            }            
+        }
+        
+        $this->setBodyParam('query', 'searchFields', $searchFieldsString);
+
+        return $this;
+    }
+    
+    /**
+     * {@link ->period($start, $end)}
+     * @return void
+     */
+    public function period(Carbon $start, Carbon $end)
+    {
+        dd($start, $end);
+
+        return $this;
+    }
+
+    /**
+     * {@link ->skipCache()}
+     * @return void
+     */
+    public function skipCache()
+    {
+        $this->setBodyParam('query', 'skipCache', 'true');
+
+        return $this;
+    }
+
+    /**
      * Gets the request's HTTP method.
      *
      * @return string
@@ -145,7 +221,12 @@ class DookiRequest extends DookiAuth
      */
     public function getApi()
     {
-        // Handles merchant aliases and other url params.
+        $fragments = explode("/", ltrim($this->route, '/'));
+
+        if (! ($fragments[0] == 'auth' || $fragments[0] == 'users'))
+        {
+            $this->route = $this->merchant . $this->route;
+        }
 
         return $this->api . $this->route;
     }
@@ -169,16 +250,6 @@ class DookiRequest extends DookiAuth
             'json' => $this->json
         ];
     }
-    
-    /**
-     * @return void
-     */
-    public function skipCache()
-    {
-        $this->setBodyParam('query', 'skipCache', 'true');
-
-        return $this;
-    }
 
     /**
      * Requests Dooki.
@@ -198,6 +269,8 @@ class DookiRequest extends DookiAuth
         $this->setRoute($route);
 
         $this->setBody($body);
+
+        dd($this->getApi(), $this->getBody());
 
         $client = new Client();
 

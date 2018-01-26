@@ -6,21 +6,9 @@ use Dooki\DookiRequestException;
 
 class DookiAuth
 {
-    private $me = null;
-
     private $authToken = null;
 
     private $authTokenType = null;
-
-    /**
-     * Sets the authed user.
-     *
-     * @param array $me
-     */
-    public function setMe(array $me)
-    {
-        $this->me = $me;
-    }
 
     /**
      * Sets the auth token.
@@ -40,16 +28,6 @@ class DookiAuth
     public function setAuthTokenType($type)
     {
         $this->authTokenType = $type;
-    }
-
-    /**
-     * Gets the auth token me.
-     *
-     * @return string
-     */
-    public function getMe()
-    {
-        return $this->me;
     }
 
     /**
@@ -88,8 +66,6 @@ class DookiAuth
         $this->setAuthToken($response['access_token']);
 
         $this->setAuthTokenType($response['token_type']);
-        
-        $this->setMe($this->request('POST', '/auth/me')->getData());
 
         return $this;
     }

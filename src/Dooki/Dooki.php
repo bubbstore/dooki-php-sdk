@@ -27,8 +27,8 @@ class Dooki
 
             $this->request->setAuthTokenType('bearer');
 
-            // Also works as a test for the given token.
-            $this->request->setMe($this->request->request('POST', '/auth/me')->getData());
+            // Tests the given token.
+            //$this->request->request('POST', '/auth/me');
         }
     }
     
