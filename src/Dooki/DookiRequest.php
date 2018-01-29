@@ -7,12 +7,15 @@ use Dooki\DookiRequest;
 use Dooki\DookiRequestException;
 use Dooki\DookiResponse;
 use GuzzleHttp\Client as Client;
+use GuzzleHttp\Exception\ClientException;
 
 class DookiRequest extends DookiAuth
 {
     private $api;
 
     private $method;
+
+    private $merchant;
 
     private $route;
 
@@ -21,8 +24,6 @@ class DookiRequest extends DookiAuth
     private $query = array();
 
     private $json = array();
-
-    private $merchant;
 
     /**
      * DookiRequest constructor.
@@ -133,7 +134,7 @@ class DookiRequest extends DookiAuth
     }
     
     /**
-     * {@link ->search()}
+     * {@link ->search(['name' => 'Entity\'s Name'])}
      * @return void
      */
     public function search(array $search)
@@ -153,7 +154,7 @@ class DookiRequest extends DookiAuth
     }
     
     /**
-     * {@link ->searchFields()}
+     * {@link ->searchFields(['name' => 'like'])}
      * @return void
      */
     public function searchFields(array $searchFields)
@@ -173,12 +174,53 @@ class DookiRequest extends DookiAuth
     }
     
     /**
-     * {@link ->period($start, $end)}
+     * {@link ->period(Carbon::now(), Carbon::now()->subDays(7))} or {@link ->period('created_at', Carbon::now(), Carbon::now()->subDays(7))}
      * @return void
      */
-    public function period(Carbon $start, Carbon $end)
+    public function period($field, Carbon $start, Carbon $end = null)
     {
-        dd($start, $end);
+        if (is_null($end)) {
+            $end = $start;
+
+            $start = $field;
+
+            $field = 'created_at';
+        }
+
+        $this->setBodyParam('query', 'date', $field . ':' . $start->format('Y-m-d') . '|' . $end->format('Y-m-d'));
+
+        return $this;
+    }
+
+    /**
+     * {@link ->orderBy('name')}
+     * @return void
+     */
+    public function orderBy($orderBy)
+    {
+        $this->setBodyParam('query', 'orderBy', $orderBy);
+
+        return $this;
+    }
+
+    /**
+     * {@link ->sortedBy('name')}
+     * @return void
+     */
+    public function sortedBy($sortedBy)
+    {
+        $this->setBodyParam('query', 'sortedBy', $sortedBy);
+
+        return $this;
+    }
+
+    /**
+     * {@link ->limit(20)}
+     * @return void
+     */
+    public function limit($limit)
+    {
+        $this->setBodyParam('query', 'limit', $limit);
 
         return $this;
     }
@@ -270,12 +312,14 @@ class DookiRequest extends DookiAuth
 
         $this->setBody($body);
 
-        dd($this->getApi(), $this->getBody());
-
         $client = new Client();
 
-        $request = $client->request($this->getMethod(), $this->getApi(), $this->getBody());
+        try {
+            $request = $client->request($this->getMethod(), $this->getApi(), $this->getBody());
+        } catch (ClientException $e) {
+            throw new DookiRequestException('Dooki:' . $response['message'], $this, new DookiResponse(get_object_vars($this), $e->getResponse()->getBody()->getContents()));
+        }
 
-        return new DookiResponse($request->getBody()->getContents());
+        return new DookiResponse(get_object_vars($this), $request->getBody()->getContents());
     }
 }

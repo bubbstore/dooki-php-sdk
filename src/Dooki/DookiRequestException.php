@@ -4,37 +4,43 @@ namespace Dooki;
 
 use Exception;
 
+use Dooki\DookiRequest;
+use Dooki\DookiResponse;
+
 class DookiRequestException extends Exception
 {
-    private $dookiStatusCode;
+    private $request;
 
-    private $dookiMessage;
+    private $response;
 
     /**
      * @return int
      */
-    public function getDookiStatusCode()
+    public function getRequest()
     {
-        return $this->dookiStatusCode;
+        return $this->request;
     }
 
     /**
      * @return int
      */
-    public function getDookiMessage()
+    public function getResponse()
     {
-        return $this->dookiMessage;
+        return $this->response;
     }
 
     /**
      * DookiRequestException constructor.
      *
      * @param string $message
-     * @param integer $statusCode {@link 0 means the request did not reached Dooki}
+     * @param integer $request
+     * @param integer $response
      */
-    public function __construct($message, $statusCode = 0)
+    public function __construct($message, DookiRequest $request = null, DookiResponse $response = null)
     {
-        $this->dookiStatusCode = $statusCode;
+        $this->request = $request;
+
+        $this->response = $response;
 
         parent::__construct($message);
     }
