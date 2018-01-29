@@ -226,6 +226,17 @@ class DookiRequest extends DookiAuth
     }
 
     /**
+     * {@link ->page(2)}
+     * @return void
+     */
+    public function page($page)
+    {
+        $this->setBodyParam('query', 'page', $page);
+
+        return $this;
+    }
+
+    /**
      * {@link ->skipCache()}
      * @return void
      */
@@ -317,9 +328,9 @@ class DookiRequest extends DookiAuth
         try {
             $request = $client->request($this->getMethod(), $this->getApi(), $this->getBody());
         } catch (ClientException $e) {
-            throw new DookiRequestException('Dooki:' . $response['message'], $this, new DookiResponse(get_object_vars($this), $e->getResponse()->getBody()->getContents()));
+            throw new DookiRequestException('Dooki: ' . $response['message'], $this, new DookiResponse($e->getResponse()->getBody()->getContents()));
         }
 
-        return new DookiResponse(get_object_vars($this), $request->getBody()->getContents());
+        return new DookiResponse($request->getBody()->getContents());
     }
 }
