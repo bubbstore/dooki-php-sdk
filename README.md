@@ -121,7 +121,7 @@ use Dooki\DookiRequestException;
 $jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...';
 
 // Configure seu JWT, seu ambiente e sua loja.
-$dooki = (new Dooki($jwt, DookiRequest::local()))->setMerchant('bordabordados');
+$dooki = (new Dooki($jwt, DookiRequest::sandbox()))->setMerchant('IDdasualoja');
 
 // Busca o catalogo de produtos da sua loja no Dooki.
 $response = $dooki->request('GET', '/catalog/products');
@@ -142,7 +142,7 @@ use Dooki\DookiRequestException;
 $jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...';
 
 // Configure seu JWT, seu ambiente e sua loja.
-$dooki = (new Dooki($jwt, DookiRequest::local()))->setMerchant('bordabordados');
+$dooki = (new Dooki($jwt, DookiRequest::sandbox()))->setMerchant('IDdasualoja');
 
 // Filtra por página.
 $dooki->page(2);
