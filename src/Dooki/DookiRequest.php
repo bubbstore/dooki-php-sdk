@@ -68,7 +68,7 @@ class DookiRequest extends DookiAuth
      */
     public function setMethod($method)
     {
-        if (! ($method == 'GET' || $method == 'POST' || $method == 'PUT' || $method == 'DELETE')) {
+        if (!in_array($method, ['GET', 'POST', 'PUT', 'DELETE'])) {
             throw new DookiRequestException($method . ' is not a valid HTTP method. Use GET, POST, PUT or DELETE instead.');
         }
 
