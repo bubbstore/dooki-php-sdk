@@ -1,6 +1,6 @@
 # Dooki-PHP-SDK
 
-[Dooki's](http://www.dooki.com.br) é a segunda versão da plataforma de e-commerce da BUBB.Store e este é o seu SDK.
+SDK oficial da plataforma de e-commerce [BUBB.Store](https://www.bubbstore.com.br)
 
 ## Principais Recursos
 
