@@ -11,33 +11,15 @@
 
 * PHP >= 7.0
 
-## Instalando o SDK
+## Instalação via Composer
 
-Se já possui um arquivo `composer.json`, basta adicionar a seguinte dependência ao seu projeto:
-
-```json
-"require": {
-    "dooki/dooki-php-sdk": "^1.0"
-}
-```
-
-Com a dependência adicionada ao `composer.json`, basta executar:
-
-```
-composer install
-```
-
-Alternativamente, você pode executar diretamente em seu terminal:
-
-```
-composer require "dooki/dooki-php-sdk"
+```bash
+$ composer require "dooki/dooki-php-sdk"
 ```
 
 ## Utilizando a SDK
 
 Você pode autenticar sua aplicação utilizando JWT (JSON Web Tokens).
-
-Se você não possuí um JWT ainda, use o método `login` para criar um e guardar-lo.
 
 ```php
 require 'vendor/autoload.php';
@@ -49,7 +31,7 @@ use Dooki\DookiRequest;
 $dooki = new Dooki(DookiRequest::sandbox());
 
 // Configure sua loja.
-$dooki->setMerchant('IDdasualoja');
+$dooki->setMerchant('aliasDeSuaLoja');
 
 try {
 	// Faz o login por credenciais.
@@ -59,11 +41,11 @@ try {
 
 	$JWT = $auth->getAuthToken(); //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
 } catch (DookiRequestException $e) {
-	// Credênciais inválidas.
+	// Credenciais inválidas.
 }
 ```
 
-Se você já possuí um JWT, autentique-se desta maneira.
+Caso você você já possua um JWT.
 
 ```php
 require 'vendor/autoload.php';
@@ -72,7 +54,7 @@ use Dooki\Dooki;
 use Dooki\DookiRequest;
 use Dooki\DookiRequestException;
 
-// Busque seu JWT.
+// Seu JWT.
 $JWT = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...';
 
 // Configure seu JWT, seu ambiente e faz o login por JWT.
@@ -81,7 +63,7 @@ $dooki = new Dooki($JWT, DookiRequest::sandbox());
 // Configure sua loja...
 ```
 
-Se você não possuí um JWT porém lhe foi dado um `token de usuário`, credencie-se desta maneira.
+Outra maneira de autenticação é pelo `token de usuário`:
 
 ```php
 require 'vendor/autoload.php';
@@ -93,7 +75,7 @@ use Dooki\DookiRequest;
 $dooki = new Dooki(DookiRequest::sandbox());
 
 // Configure sua loja.
-$dooki->setMerchant('IDdasualoja');
+$dooki->setMerchant('aliasDeSuaLoja');
 
 try {
 	// Configure seu token de usuário.
@@ -108,7 +90,7 @@ try {
 }
 ```
 
-Uma vez autenticado/credenciado, você já pode consumir a Dooki usufruindo este SDK.
+Uma vez autenticado, você já pode consumir a Dooki utilizando este SDK.
 
 ```php
 require 'vendor/autoload.php';
@@ -121,7 +103,7 @@ use Dooki\DookiRequestException;
 $jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...';
 
 // Configure seu JWT, seu ambiente e sua loja.
-$dooki = (new Dooki($jwt, DookiRequest::sandbox()))->setMerchant('IDdasualoja');
+$dooki = (new Dooki($jwt, DookiRequest::sandbox()))->setMerchant('aliasDeSuaLoja');
 
 // Busca o catalogo de produtos da sua loja no Dooki.
 $response = $dooki->request('GET', '/catalog/products');
@@ -129,7 +111,7 @@ $response = $dooki->request('GET', '/catalog/products');
 $response->getData(); // array
 ```
 
-Criamos métodos para facilitar os recursos de pesquisa avançada e filtros.
+Métodos que facilitam os recursos de pesquisa e filtros.
 
 ```php
 require 'vendor/autoload.php';
@@ -142,7 +124,7 @@ use Dooki\DookiRequestException;
 $jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...';
 
 // Configure seu JWT, seu ambiente e sua loja.
-$dooki = (new Dooki($jwt, DookiRequest::sandbox()))->setMerchant('IDdasualoja');
+$dooki = (new Dooki($jwt, DookiRequest::sandbox()))->setMerchant('aliasDeSuaLoja');
 
 // Filtra por página.
 $dooki->page(2);
@@ -166,7 +148,7 @@ $dooki->limit(20);
 // Ignora o cache.
 $dooki->skipCache();
 
-// Busca, então, o catalogo de produtos filtrado.
+// Retorna os produtos do catálogo com os filtros aplicados
 $response = $dooki->request('GET', '/catalog/products');
 
 $response->getData(); // array

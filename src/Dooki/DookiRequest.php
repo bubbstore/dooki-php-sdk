@@ -19,11 +19,11 @@ class DookiRequest extends DookiAuth
 
     private $route;
 
-    private $headers = array();
+    private $headers = [];
 
-    private $query = array();
+    private $query = [];
 
-    private $json = array();
+    private $json = [];
 
     /**
      * DookiRequest constructor.
@@ -131,7 +131,7 @@ class DookiRequest extends DookiAuth
 
     /**
      * Sets the request's merchant alias.
-     * 
+     *
      * @param string $alias
      */
     public function setMerchant($alias)
@@ -153,9 +153,9 @@ class DookiRequest extends DookiAuth
 
         foreach ($search as $field => $value) {
             $searchString .= $field . ':' . $value;
-            if(! (next($search) === false)) {
+            if (! (next($search) === false)) {
                 $searchString .= ';';
-            }            
+            }
         }
         
         $this->setBodyParam('query', 'search', $searchString);
@@ -173,9 +173,9 @@ class DookiRequest extends DookiAuth
 
         foreach ($searchFields as $field => $value) {
             $searchFieldsString .= $field . ':' . $value;
-            if(! (next($searchFields) === false)) {
+            if (! (next($searchFields) === false)) {
                 $searchFieldsString .= ';';
-            }            
+            }
         }
         
         $this->setBodyParam('query', 'searchFields', $searchFieldsString);
@@ -286,8 +286,7 @@ class DookiRequest extends DookiAuth
     {
         $fragments = explode("/", ltrim($this->route, '/'));
 
-        if (! ($fragments[0] == 'auth' || $fragments[0] == 'users'))
-        {
+        if (! ($fragments[0] == 'auth' || $fragments[0] == 'users')) {
             $this->route = $this->merchant . $this->route;
         }
 
@@ -301,7 +300,7 @@ class DookiRequest extends DookiAuth
      */
     public function getBody()
     {
-        $headers = array();
+        $headers = [];
 
         if ($this->getAuthTokenType() == 'bearer') {
             $headers['Authorization'] = 'Bearer ' . $this->getAuthToken();
@@ -325,7 +324,7 @@ class DookiRequest extends DookiAuth
      *
      * @return array
      */
-    public function request($method, $route, array $body = array())
+    public function request($method, $route, array $body = [])
     {
         $this->setMethod($method);
 

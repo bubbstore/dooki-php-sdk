@@ -6,9 +6,9 @@ use Dooki\DookiRequestException;
 
 class DookiResponse
 {
-    private $response = array();
+    private $response = [];
 
-    private $data = array();
+    private $data = [];
 
     /**
      * Sets Dooki's entire response.
@@ -48,7 +48,7 @@ class DookiResponse
 
     /**
      * Get Dooki response's HTTP status code.
-     * 
+     *
      * @return integer
      */
     public function getStatusCode()

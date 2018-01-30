@@ -26,9 +26,6 @@ class Dooki
             $this->request->setAuthToken($jwt);
 
             $this->request->setAuthTokenType('bearer');
-
-            // Tests the given token.
-            //$this->request->request('POST', '/auth/me');
         }
     }
     
