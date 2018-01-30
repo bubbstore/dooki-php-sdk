@@ -2,6 +2,8 @@
 
 SDK oficial da plataforma de e-commerce [BUBB.Store](https://www.bubbstore.com.br)
 
+[![StyleCI](https://styleci.io/repos/118114699/shield?branch=master)](https://styleci.io/repos/118114699)
+
 ## Principais Recursos
 
 * [x] Recurso de Login com JWT e Tokens de usuário.
