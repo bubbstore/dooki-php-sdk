@@ -2,6 +2,8 @@
 
 SDK oficial da plataforma de e-commerce [BUBB.Store](https://www.bubbstore.com.br)
 
+[![StyleCI](https://styleci.io/repos/118114699/shield?branch=master)](https://styleci.io/repos/118114699) <a href="https://codeclimate.com/github/bubbstore/dooki-php-sdk/maintainability"><img src="https://api.codeclimate.com/v1/badges/8103a9eeee26e720c90b/maintainability" /></a>
+
 ## Principais Recursos
 
 * [x] Recurso de Login com JWT e Tokens de usuário.
@@ -14,7 +16,7 @@ SDK oficial da plataforma de e-commerce [BUBB.Store](https://www.bubbstore.com.b
 ## Instalação via Composer
 
 ```bash
-$ composer require "dooki/dooki-php-sdk"
+$ composer require dooki/dooki-php-sdk
 ```
 
 ## Utilizando a SDK
