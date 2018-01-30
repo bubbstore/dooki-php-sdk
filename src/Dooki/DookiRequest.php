@@ -73,6 +73,8 @@ class DookiRequest extends DookiAuth
         }
 
         $this->method = $method;
+
+        return $this;
     }
 
     /**
@@ -89,6 +91,8 @@ class DookiRequest extends DookiAuth
         }
 
         $this->route = $route;
+
+        return $this;
     }
 
     /**
@@ -107,6 +111,8 @@ class DookiRequest extends DookiAuth
         }
 
         $this->$property[$key] = $name;
+
+        return $this;
     }
 
     /**
@@ -119,6 +125,8 @@ class DookiRequest extends DookiAuth
         foreach ($body as $key => $param) {
             $this->setBodyParam(($this->getMethod() == 'GET' ? 'query' : 'json'), $key, $param);
         }
+
+        return $this;
     }
 
     /**
@@ -131,6 +139,8 @@ class DookiRequest extends DookiAuth
         $alias = ltrim($alias, '/');
 
         $this->merchant = '/' . $alias;
+
+        return $this;
     }
     
     /**
