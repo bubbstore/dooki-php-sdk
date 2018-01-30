@@ -147,26 +147,26 @@ $dooki = (new Dooki($jwt, DookiRequest::sandbox()))->setMerchant('IDdasualoja');
 // Filtra por página.
 $dooki->page(2);
 
-// Filtra por nome e formato de busca (LIKE).
+// Filtra por qualquer campo e altera o formato de busca dos campos sendo filtrados (LIKE).
 $dooki->search(['name' => 'Roupa de Cama']);
 $dooki->searchFields(['name' => 'like']);
 
 // Filtra por data de criação (created_at)...
 $dooki->period(Carbon\Carbon::now(), Carbon\Carbon::now()->subDays(7));
-// ...ou, também, por qualquer campo de data.
+// ...ou por qualquer campo de data.
 $dooki->period('any_date_field', Carbon\Carbon::now(), Carbon\Carbon::now()->subDays(7));
 
-// Ordena por nome e por forma de ordenação.
+// Ordena por qualquer campos e altera a direção de orderação dos campos sendo ordenados.
 $dooki->orderBy('name');
 $dooki->sortedBy('desc');
 
-// Altera o limite da paginação.
+// Altera o limite da paginação (máximo é 100).
 $dooki->limit(20);
 
 // Ignora o cache.
 $dooki->skipCache();
 
-// Busca o catalogo de produtos da sua loja no Dooki.
+// Busca, então, o catalogo de produtos filtrado.
 $response = $dooki->request('GET', '/catalog/products');
 
 $response->getData(); // array
