@@ -142,7 +142,16 @@ class DookiRequest extends DookiAuth
 
         return $this;
     }
-    
+
+    /**
+     * {@link ->include(['skus', 'images'])}
+     * @return void
+     */
+    public function include(array $includes)
+    {
+        $this->setBodyParam('query', 'include', implode(',', $includes));
+    }
+
     /**
      * {@link ->search(['name' => 'Entity\'s Name'])}
      * @return void
