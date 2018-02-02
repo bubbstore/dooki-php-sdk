@@ -7,8 +7,7 @@
 	],
 	"require": {
 		"php": ">=7.0",
-		"guzzlehttp/guzzle": "~6.0",
-		"nesbot/carbon": "~1.22.1"
+		"guzzlehttp/guzzle": "~6.0"
 	},
 	"require-dev": {
 		"codeclimate/php-test-reporter": "~0.3",

@@ -2,7 +2,6 @@
 
 namespace Dooki;
 
-use Carbon\Carbon;
 use Dooki\DookiRequest;
 use Dooki\DookiRequestException;
 use Dooki\DookiResponse;
@@ -142,7 +141,16 @@ class DookiRequest extends DookiAuth
 
         return $this;
     }
-    
+
+    /**
+     * {@link ->include(['skus', 'images'])}
+     * @return void
+     */
+    public function include(array $includes)
+    {
+        $this->setBodyParam('query', 'include', implode(',', $includes));
+    }
+
     /**
      * {@link ->search(['name' => 'Entity\'s Name'])}
      * @return void
@@ -184,10 +192,9 @@ class DookiRequest extends DookiAuth
     }
     
     /**
-     * {@link ->period(Carbon::now(), Carbon::now()->subDays(7))} or {@link ->period('created_at', Carbon::now(), Carbon::now()->subDays(7))}
      * @return void
      */
-    public function period($field, Carbon $start, Carbon $end = null)
+    public function period($field, $start, $end = null)
     {
         if (is_null($end)) {
             $end = $start;
@@ -197,7 +204,7 @@ class DookiRequest extends DookiAuth
             $field = 'created_at';
         }
 
-        $this->setBodyParam('query', 'date', $field . ':' . $start->format('Y-m-d') . '|' . $end->format('Y-m-d'));
+        $this->setBodyParam('query', 'date', $field . ':' . $start . '|' . $end);
 
         return $this;
     }
@@ -304,6 +311,10 @@ class DookiRequest extends DookiAuth
 
         if ($this->getAuthTokenType() == 'bearer') {
             $headers['Authorization'] = 'Bearer ' . $this->getAuthToken();
+        }
+
+        if ($this->getAuthTokenType() == 'user-token') {
+            $headers['User-Token'] = $this->getAuthToken();
         }
 
         return [

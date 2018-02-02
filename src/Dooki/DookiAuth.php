@@ -69,4 +69,16 @@ class DookiAuth
 
         return $this;
     }
+
+    /**
+     * @param string $token
+     */
+    public function userToken($token)
+    {
+        $this->setAuthToken($token);
+
+        $this->setAuthTokenType('user-token');
+
+        return $this;
+    }
 }

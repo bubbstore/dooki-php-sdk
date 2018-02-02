@@ -79,14 +79,11 @@ $dooki = new Dooki(DookiRequest::sandbox());
 // Configure sua loja.
 $dooki->setMerchant('aliasDeSuaLoja');
 
+// Configure seu token de usuário.
+$dooki->userToken('seuTokenDeUsuário');
+
 try {
-	// Configure seu token de usuário.
-	$userToken = 'JlLWFwaS12Mi5sb2NhbC9JlLWFwaS12Mi5sb...';
-
-	// Faz o login por token de usuário.
-	$auth = $dooki->userToken($userToken);
-
-	$type = $auth->getAuthTokenType(); // user-token
+	// Requests...
 } catch (DookiRequestException $e) {
 	// Token de usuário inválido.
 }
@@ -136,9 +133,9 @@ $dooki->search(['name' => 'Roupa de Cama']);
 $dooki->searchFields(['name' => 'like']);
 
 // Filtra por data de criação (created_at)...
-$dooki->period(Carbon\Carbon::now(), Carbon\Carbon::now()->subDays(7));
+$dooki->period('2018-01-01', '2018-01-31');
 // ...ou por qualquer campo de data.
-$dooki->period('any_date_field', Carbon\Carbon::now(), Carbon\Carbon::now()->subDays(7));
+$dooki->period('any_date_field', '2018-01-01', '2018-01-31');
 
 // Ordena por qualquer campos e altera a direção de orderação dos campos sendo ordenados.
 $dooki->orderBy('name');
