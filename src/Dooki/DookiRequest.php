@@ -2,7 +2,6 @@
 
 namespace Dooki;
 
-use Carbon\Carbon;
 use Dooki\DookiRequest;
 use Dooki\DookiRequestException;
 use Dooki\DookiResponse;
@@ -193,10 +192,9 @@ class DookiRequest extends DookiAuth
     }
     
     /**
-     * {@link ->period(Carbon::now(), Carbon::now()->subDays(7))} or {@link ->period('created_at', Carbon::now(), Carbon::now()->subDays(7))}
      * @return void
      */
-    public function period($field, Carbon $start, Carbon $end = null)
+    public function period($field, $start, $end = null)
     {
         if (is_null($end)) {
             $end = $start;
@@ -206,7 +204,7 @@ class DookiRequest extends DookiAuth
             $field = 'created_at';
         }
 
-        $this->setBodyParam('query', 'date', $field . ':' . $start->format('Y-m-d') . '|' . $end->format('Y-m-d'));
+        $this->setBodyParam('query', 'date', $field . ':' . $start . '|' . $end);
 
         return $this;
     }
