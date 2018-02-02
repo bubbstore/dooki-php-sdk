@@ -79,14 +79,11 @@ $dooki = new Dooki(DookiRequest::sandbox());
 // Configure sua loja.
 $dooki->setMerchant('aliasDeSuaLoja');
 
+// Configure seu token de usuário.
+$dooki->userToken('seuTokenDeUsuário');
+
 try {
-	// Configure seu token de usuário.
-	$userToken = 'JlLWFwaS12Mi5sb2NhbC9JlLWFwaS12Mi5sb...';
-
-	// Faz o login por token de usuário.
-	$auth = $dooki->userToken($userToken);
-
-	$type = $auth->getAuthTokenType(); // user-token
+	// Requests...
 } catch (DookiRequestException $e) {
 	// Token de usuário inválido.
 }
