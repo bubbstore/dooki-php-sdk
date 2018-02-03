@@ -24,6 +24,8 @@ class DookiRequest extends DookiAuth
 
     private $json = [];
 
+    private $userAgent = 'dooki-php-sdk';
+
     /**
      * DookiRequest constructor.
      *
@@ -32,6 +34,15 @@ class DookiRequest extends DookiAuth
     public function __construct($api)
     {
         $this->api = $api;
+    }
+
+    /**
+     * getUserAgent
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->userAgent;
     }
 
     /**
@@ -316,6 +327,8 @@ class DookiRequest extends DookiAuth
         if ($this->getAuthTokenType() == 'user-token') {
             $headers['User-Token'] = $this->getAuthToken();
         }
+
+        $headers['User-Agent'] = $this->getUserAgent();
 
         return [
             'headers' => array_merge($this->headers, $headers),
