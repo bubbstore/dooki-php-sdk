@@ -42,7 +42,7 @@ class DookiRequest extends DookiAuth
      */
     public function getUserAgent()
     {
-        return $this->userAgent;   
+        return $this->userAgent;
     }
 
     /**
