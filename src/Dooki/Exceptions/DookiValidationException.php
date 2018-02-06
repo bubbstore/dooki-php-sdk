@@ -6,7 +6,6 @@ use Exception;
 
 class DookiValidationException extends Exception
 {
-    
     private $errors;
 
     /**
