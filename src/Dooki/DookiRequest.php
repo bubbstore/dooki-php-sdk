@@ -3,7 +3,8 @@
 namespace Dooki;
 
 use Dooki\DookiRequest;
-use Dooki\DookiRequestException;
+use Dooki\Exceptions\DookiRequestException;
+use Dooki\Exceptions\DookiValidationException;
 use Dooki\DookiResponse;
 use GuzzleHttp\Client as Client;
 use GuzzleHttp\Exception\ClientException;
@@ -26,6 +27,8 @@ class DookiRequest extends DookiAuth
 
     private $userAgent = 'dooki-php-sdk';
 
+    private $version = 'v2';
+
     /**
      * DookiRequest constructor.
      *
@@ -34,6 +37,11 @@ class DookiRequest extends DookiAuth
     public function __construct($api)
     {
         $this->api = $api;
+    }
+
+    public function getVersion()
+    {
+        return $this->version;
     }
 
     /**
@@ -78,8 +86,8 @@ class DookiRequest extends DookiAuth
      */
     public function setMethod($method)
     {
-        if (!in_array($method, ['GET', 'POST', 'PUT', 'DELETE'])) {
-            throw new DookiRequestException($method . ' is not a valid HTTP method. Use GET, POST, PUT or DELETE instead.');
+        if (!in_array($method, ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])) {
+            throw new DookiRequestException($method . ' is not a valid HTTP method. Use GET, POST, PUT, PATCH or DELETE instead.');
         }
 
         $this->method = $method;
@@ -308,7 +316,7 @@ class DookiRequest extends DookiAuth
             $this->route = $this->merchant . $this->route;
         }
 
-        return $this->api . $this->route;
+        return $this->api . '/'.$this->getVersion() . $this->route;
     }
 
     /**
@@ -356,14 +364,23 @@ class DookiRequest extends DookiAuth
 
         $this->setBody($body);
 
-        $client = new Client();
-
         try {
+            $client = new Client;
             $request = $client->request($this->getMethod(), $this->getApi(), $this->getBody());
+            $response = $request->getBody()->getContents();
         } catch (ClientException $e) {
-            throw new DookiRequestException('Dooki: ' . $response['message'], $this, new DookiResponse($e->getResponse()->getBody()->getContents()));
+            $response = $e->getResponse()->getBody()->getContents();
+
+            // Validation exception
+            if ($e->getCode() == 422) {
+                $arrResponse = json_decode($response, true);
+                throw new DookiValidationException($arrResponse['message'], $e->getCode(), $arrResponse['errors']);
+            }
+
+            // Generic exception
+            throw new DookiRequestException('API error: ' . $response['message'], $this, new DookiResponse($response));
         }
 
-        return new DookiResponse($request->getBody()->getContents());
+        return new DookiResponse($response);
     }
 }
