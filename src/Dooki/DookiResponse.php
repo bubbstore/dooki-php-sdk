@@ -3,12 +3,15 @@
 namespace Dooki;
 
 use Dooki\DookiRequestException;
+use Dooki\DookiPagination;
 
 class DookiResponse
 {
     private $response = [];
 
     private $data = [];
+
+    private $meta = [];
 
     /**
      * Sets Dooki's entire response.
@@ -31,6 +34,33 @@ class DookiResponse
     }
 
     /**
+     * setMeta
+     *
+     * @param array $data
+     */
+    private function setMeta(array $value)
+    {
+        $this->meta = $value;
+    }
+
+    /**
+     * getMeta
+     */
+    public function getMeta()
+    {
+        return $this->meta;
+    }
+
+    /**
+     * pagination
+     * @return array
+     */
+    public function pagination()
+    {
+        return new DookiPagination($this->getMeta()['pagination']);
+    }
+
+    /**
      * DookiResponse constructor.
      *
      * @param string $response
@@ -40,6 +70,10 @@ class DookiResponse
         $response = json_decode($response, true);
 
         $this->setResponse($response);
+
+        if (isset($response['meta'])) {
+            $this->setMeta($response['meta']);
+        }
 
         if (isset($response['data'])) {
             $this->setData($response['data']);
