@@ -28,6 +28,8 @@ require 'vendor/autoload.php';
 
 use Dooki\Dooki;
 use Dooki\DookiRequest;
+use Dooki\Exceptions\DookiValidationException;
+use Dooki\Exceptions\DookiRequestException;
 
 // Configure seu ambiente.
 $dooki = new Dooki(DookiRequest::sandbox());
@@ -42,6 +44,12 @@ try {
 	$type = $auth->getAuthTokenType(); // bearer
 
 	$JWT = $auth->getAuthToken(); //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+} catch (DookiValidationException $e) {
+    // Erro de validação dos inputs
+    
+    // Mensagens de erros
+    $errors = $e->getErrors();
+
 } catch (DookiRequestException $e) {
 	// Credenciais inválidas.
 }
@@ -96,7 +104,8 @@ require 'vendor/autoload.php';
 
 use Dooki\Dooki;
 use Dooki\DookiRequest;
-use Dooki\DookiRequestException;
+use Dooki\Exceptions\DookiRequestException;
+use Dooki\Exceptions\DookiValidationException;
 
 // Busque seu JWT.
 $jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...';
