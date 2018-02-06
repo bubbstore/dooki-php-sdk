@@ -162,6 +162,27 @@ $response = $dooki->request('GET', '/catalog/products');
 $response->getData(); // array
 ```
 
+### Paginação
+
+```php
+<?php
+
+use Dooki\Dooki;
+
+// ...
+
+$response = $response->getData();
+$pagination = $response->pagination();
+
+$pagination->getTotal(); // Retorna o total de registros
+$pagination->getPerPage(); // Retorna o total de registros por página
+$pagination->getCurrentPage(); // Retorna a página atual
+$pagination->getTotalPages(); // Retorna a quantidade total de páginas
+$pagination->getNextLink(); // Retorna a URL da próxima página
+$pagination->getPreviousLink(); // Retorna a URL da página anterior
+
+```
+
 ## Change Log
 
 Consulte [CHANGELOG](.github/CHANGELOG.md) para obter mais informações sobre o que mudou recentemente.
