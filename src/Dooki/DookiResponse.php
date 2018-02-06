@@ -67,7 +67,6 @@ class DookiResponse
      */
     public function __construct($response)
     {
-
         if (!empty($response)) {
             $response = json_decode($response, true);
             $this->setResponse($response);
