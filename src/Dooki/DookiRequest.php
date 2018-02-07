@@ -58,7 +58,7 @@ class DookiRequest extends DookiAuth
      */
     public static function production()
     {
-        return new DookiRequest('https://api.dooki.com.br/v2');
+        return new DookiRequest('https://api.dooki.com.br');
     }
 
     /**
@@ -66,7 +66,7 @@ class DookiRequest extends DookiAuth
      */
     public static function sandbox()
     {
-        return new DookiRequest('https://api-sandbox.dooki.com.br/v2');
+        return new DookiRequest('https://api-sandbox.dooki.com.br');
     }
     
     /**
