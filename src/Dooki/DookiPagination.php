@@ -61,7 +61,7 @@ class DookiPagination
      * getTotal
      * @return int
      */
-    public function getTotal() :int
+    public function getTotal()
     {
         return $this->total;
     }
@@ -70,7 +70,7 @@ class DookiPagination
      * getCount
      * @return int
      */
-    public function getCount() :int
+    public function getCount()
     {
         return $this->count;
     }
@@ -79,7 +79,7 @@ class DookiPagination
      * getPerPage
      * @return int
      */
-    public function getPerPage() :int
+    public function getPerPage()
     {
         return $this->perPage;
     }
@@ -88,7 +88,7 @@ class DookiPagination
      * getCurrentPage
      * @return int
      */
-    public function getCurrentPage() :int
+    public function getCurrentPage()
     {
         return $this->currentPage;
     }
@@ -97,7 +97,7 @@ class DookiPagination
      * getTotalPages
      * @return int
      */
-    public function getTotalPages() :int
+    public function getTotalPages()
     {
         return $this->totalPages;
     }

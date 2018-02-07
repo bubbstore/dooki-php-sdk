@@ -100,7 +100,7 @@ class DookiResponse
      *
      * @return array
      */
-    public function getResponse(): array
+    public function getResponse()
     {
         return $this->response;
     }
@@ -110,7 +110,7 @@ class DookiResponse
      *
      * @return array
      */
-    public function getData(): array
+    public function getData()
     {
         return $this->data;
     }
