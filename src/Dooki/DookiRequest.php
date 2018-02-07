@@ -138,7 +138,7 @@ class DookiRequest extends DookiAuth
      *
      * @param array $body
      */
-    public function setBody(array $body)
+    public function setBody($body)
     {
         foreach ($body as $key => $param) {
             $this->setBodyParam(($this->getMethod() == 'GET' ? 'query' : 'json'), $key, $param);
@@ -165,7 +165,7 @@ class DookiRequest extends DookiAuth
      * {@link ->include(['skus', 'images'])}
      * @return void
      */
-    public function include(array $includes)
+    public function include($includes)
     {
         $this->setBodyParam('query', 'include', implode(',', $includes));
     }
@@ -174,7 +174,7 @@ class DookiRequest extends DookiAuth
      * {@link ->search(['name' => 'Entity\'s Name'])}
      * @return void
      */
-    public function search(array $search)
+    public function search($search)
     {
         $searchString = '';
 
@@ -194,7 +194,7 @@ class DookiRequest extends DookiAuth
      * {@link ->searchFields(['name' => 'like'])}
      * @return void
      */
-    public function searchFields(array $searchFields)
+    public function searchFields($searchFields)
     {
         $searchFieldsString = '';
 
@@ -356,7 +356,7 @@ class DookiRequest extends DookiAuth
      *
      * @return array
      */
-    public function request($method, $route, array $body = [])
+    public function request($method, $route, $body = [])
     {
         $this->setMethod($method);
 

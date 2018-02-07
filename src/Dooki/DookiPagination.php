@@ -40,7 +40,7 @@ class DookiPagination
      */
     private $previousLink;
 
-    public function __construct(array $pagination)
+    public function __construct($pagination)
     {
         $this->total = $pagination['total'];
         $this->count = $pagination['count'];
@@ -106,7 +106,7 @@ class DookiPagination
      * getNextLink
      * @return string
      */
-    public function getNextLink() :string
+    public function getNextLink()
     {
         return $this->nextLink;
     }
@@ -115,7 +115,7 @@ class DookiPagination
      * getPreviousLink
      * @return string
      */
-    public function getPreviousLink() :string
+    public function getPreviousLink()
     {
         return $this->previousLink;
     }
