@@ -8,3 +8,4 @@ Atualizações devem seguir os princípios de [Keep a CHANGELOG](http://keepacha
 
 - Retorna os erros quando uma entidade não é processada.
 - Agrupa as Exceptions no namespace `Dooki\Exceptions`.
+- Tratamento de um response vazio.

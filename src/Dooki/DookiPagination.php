@@ -47,8 +47,14 @@ class DookiPagination
         $this->perPage = $pagination['per_page'];
         $this->currentPage = $pagination['current_page'];
         $this->totalPages = $pagination['total_pages'];
-        $this->nextLink = count($pagination['links']) > 0 ? $pagination['links']['next'] : null;
-        $this->previousLink = count($pagination['links']) > 0 ? $pagination['links']['previous'] : null;
+        if (count($pagination['links']) > 0) {
+            if (isset($pagination['links']['next'])) {
+                $this->nextLink = $pagination['links']['next'];
+            }
+            if (isset($pagination['links']['previous'])) {
+                $this->previousLink = $pagination['links']['previous'];
+            }
+        }
     }
 
     /**
