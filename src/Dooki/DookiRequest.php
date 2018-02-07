@@ -162,10 +162,10 @@ class DookiRequest extends DookiAuth
     }
 
     /**
-     * {@link ->include(['skus', 'images'])}
+     * {@link->includes(['skus', 'images'])}
      * @return void
      */
-    public function include($includes)
+    public function includes($includes)
     {
         $this->setBodyParam('query', 'include', implode(',', $includes));
     }
