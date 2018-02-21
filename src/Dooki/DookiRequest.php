@@ -58,7 +58,7 @@ class DookiRequest extends DookiAuth
      */
     public static function production()
     {
-        return new DookiRequest('https://api.dooki.com.br/v2');
+        return new DookiRequest('https://api.dooki.com.br');
     }
 
     /**
@@ -66,7 +66,7 @@ class DookiRequest extends DookiAuth
      */
     public static function sandbox()
     {
-        return new DookiRequest('https://api-sandbox.dooki.com.br/v2');
+        return new DookiRequest('https://api-sandbox.dooki.com.br');
     }
     
     /**
@@ -138,7 +138,7 @@ class DookiRequest extends DookiAuth
      *
      * @param array $body
      */
-    public function setBody(array $body)
+    public function setBody($body)
     {
         foreach ($body as $key => $param) {
             $this->setBodyParam(($this->getMethod() == 'GET' ? 'query' : 'json'), $key, $param);
@@ -162,10 +162,10 @@ class DookiRequest extends DookiAuth
     }
 
     /**
-     * {@link ->include(['skus', 'images'])}
+     * {@link->includes(['skus', 'images'])}
      * @return void
      */
-    public function include(array $includes)
+    public function includes($includes)
     {
         $this->setBodyParam('query', 'include', implode(',', $includes));
     }
@@ -174,7 +174,7 @@ class DookiRequest extends DookiAuth
      * {@link ->search(['name' => 'Entity\'s Name'])}
      * @return void
      */
-    public function search(array $search)
+    public function search($search)
     {
         $searchString = '';
 
@@ -194,7 +194,7 @@ class DookiRequest extends DookiAuth
      * {@link ->searchFields(['name' => 'like'])}
      * @return void
      */
-    public function searchFields(array $searchFields)
+    public function searchFields($searchFields)
     {
         $searchFieldsString = '';
 
@@ -356,7 +356,7 @@ class DookiRequest extends DookiAuth
      *
      * @return array
      */
-    public function request($method, $route, array $body = [])
+    public function request($method, $route, $body = [])
     {
         $this->setMethod($method);
 
@@ -369,12 +369,11 @@ class DookiRequest extends DookiAuth
             $request = $client->request($this->getMethod(), $this->getApi(), $this->getBody());
             $response = $request->getBody()->getContents();
         } catch (ClientException $e) {
-            $response = $e->getResponse()->getBody()->getContents();
+            $response = json_encode($e->getResponse()->getBody()->getContents(), true);
 
             // Validation exception
             if ($e->getCode() == 422) {
-                $arrResponse = json_decode($response, true);
-                throw new DookiValidationException($arrResponse['message'], $e->getCode(), $arrResponse['errors']);
+                throw new DookiValidationException($response['message'], $e->getCode(), $response['errors']);
             }
 
             // Generic exception

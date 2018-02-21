@@ -18,7 +18,7 @@ class DookiResponse
      *
      * @param array $response
      */
-    private function setResponse(array $response)
+    private function setResponse($response)
     {
         $this->response = $response;
     }
@@ -28,7 +28,7 @@ class DookiResponse
      *
      * @param array $data
      */
-    private function setData(array $data)
+    private function setData($data)
     {
         $this->data = $data;
     }
@@ -38,7 +38,7 @@ class DookiResponse
      *
      * @param array $data
      */
-    private function setMeta(array $value)
+    private function setMeta($value)
     {
         $this->meta = $value;
     }
@@ -67,10 +67,11 @@ class DookiResponse
      */
     public function __construct($response)
     {
-        if (!empty($response)) {
+        if (!is_array($response)) {
             $response = json_decode($response, true);
-            $this->setResponse($response);
         }
+
+        $this->setResponse($response);
 
         if (isset($response['meta'])) {
             $this->setMeta($response['meta']);

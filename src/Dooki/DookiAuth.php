@@ -55,7 +55,7 @@ class DookiAuth
      *
      * @throws Dooki\DookiRequestException if anything gets wrong.
      */
-    public function login(array $params)
+    public function login($params)
     {
         $response = $this->request('POST', 'auth/login', $params)->getResponse();
 
