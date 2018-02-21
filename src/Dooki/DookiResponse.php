@@ -67,10 +67,12 @@ class DookiResponse
      */
     public function __construct($response)
     {
-        if (!empty($response)) {
+
+        if (!is_array($response)) {
             $response = json_decode($response, true);
-            $this->setResponse($response);
         }
+
+        $this->setResponse($response);
 
         if (isset($response['meta'])) {
             $this->setMeta($response['meta']);

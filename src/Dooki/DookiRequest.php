@@ -369,12 +369,12 @@ class DookiRequest extends DookiAuth
             $request = $client->request($this->getMethod(), $this->getApi(), $this->getBody());
             $response = $request->getBody()->getContents();
         } catch (ClientException $e) {
-            $response = $e->getResponse()->getBody()->getContents();
+            
+            $response = json_encode($e->getResponse()->getBody()->getContents(), true);
 
             // Validation exception
             if ($e->getCode() == 422) {
-                $arrResponse = json_decode($response, true);
-                throw new DookiValidationException($arrResponse['message'], $e->getCode(), $arrResponse['errors']);
+                throw new DookiValidationException($response['message'], $e->getCode(), $response['errors']);
             }
 
             // Generic exception
