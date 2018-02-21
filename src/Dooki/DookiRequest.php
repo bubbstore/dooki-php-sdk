@@ -369,7 +369,6 @@ class DookiRequest extends DookiAuth
             $request = $client->request($this->getMethod(), $this->getApi(), $this->getBody());
             $response = $request->getBody()->getContents();
         } catch (ClientException $e) {
-            
             $response = json_encode($e->getResponse()->getBody()->getContents(), true);
 
             // Validation exception
