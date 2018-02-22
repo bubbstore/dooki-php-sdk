@@ -67,7 +67,6 @@ class DookiResponse
      */
     public function __construct($response)
     {
-
         if (!is_array($response)) {
             $response = json_decode($response, true);
         }
