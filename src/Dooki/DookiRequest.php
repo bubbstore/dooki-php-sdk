@@ -168,6 +168,7 @@ class DookiRequest extends DookiAuth
     public function includes($includes)
     {
         $this->setBodyParam('query', 'include', implode(',', $includes));
+        return $this;
     }
 
     /**
