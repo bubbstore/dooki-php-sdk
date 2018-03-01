@@ -180,9 +180,11 @@ class DookiRequest extends DookiAuth
         $searchString = '';
 
         foreach ($search as $field => $value) {
-            $searchString .= $field . ':' . $value;
-            if (! (next($search) === false)) {
-                $searchString .= ';';
+            if (!is_array($value)) {
+                $searchString .= $field . ':' . $value;
+                if (! (next($search) === false)) {
+                    $searchString .= ';';
+                }
             }
         }
         
