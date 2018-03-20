@@ -2,13 +2,35 @@
 
 namespace Dooki;
 
-use Dooki\DookiRequestException;
+use Dooki\Exceptions\DookiRequestException;
 
 class DookiAuth
 {
     private $authToken = null;
 
     private $authTokenType = null;
+
+    private $user;
+
+    /**
+     * setUser
+     *
+     * @param array $value
+     */
+    public function setUser($value)
+    {
+        $this->user = $value;
+    }
+
+    /**
+     * getUser
+     *
+     * @return array
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 
     /**
      * Sets the auth token.
@@ -59,13 +81,11 @@ class DookiAuth
     {
         $response = $this->request('POST', 'auth/login', $params)->getResponse();
 
-        if (! (isset($response['access_token']) && isset($response['token_type']))) {
-            throw new DookiRequestException('Login could not be completed. Dooki\'s response was incomplete.', 200);
-        }
-
         $this->setAuthToken($response['access_token']);
 
         $this->setAuthTokenType($response['token_type']);
+
+        $this->setUser($response['user']);
 
         return $this;
     }
