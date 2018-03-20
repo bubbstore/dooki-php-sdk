@@ -36,12 +36,12 @@ class DookiRequestException extends Exception
      * @param integer $request
      * @param integer $response
      */
-    public function __construct($message, DookiRequest $request = null, DookiResponse $response = null)
+    public function __construct($message, DookiRequest $request = null, DookiResponse $response = null, $code = 400)
     {
         $this->request = $request;
 
         $this->response = $response;
 
-        parent::__construct($message);
+        parent::__construct($message, $code);
     }
 }
