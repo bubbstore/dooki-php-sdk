@@ -378,9 +378,9 @@ class DookiRequest extends DookiAuth
             if ($e->getCode() == 422) {
                 throw new DookiValidationException($response['message'], $e->getCode(), $response['errors']);
             }
-
+            
             // Generic exception
-            throw new DookiRequestException('API error: ' . $response['message'], $this, new DookiResponse($response));
+            throw new DookiRequestException($response['message'], $this, new DookiResponse($response), $e->getCode());
         }
 
         return new DookiResponse($response);
