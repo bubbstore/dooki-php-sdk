@@ -315,7 +315,9 @@ class DookiRequest extends DookiAuth
     {
         $fragments = explode("/", ltrim($this->route, '/'));
 
-        if (! ($fragments[0] == 'auth' || $fragments[0] == 'users')) {
+        $ignoredPaths = ['auth', 'users', 'pvt'];
+
+        if (!in_array($fragments[0], $ignoredPaths)) {
             $this->route = $this->merchant . $this->route;
         }
 
