@@ -29,6 +29,8 @@ class DookiRequest extends DookiAuth
 
     private $version = 'v2';
 
+    private $forceAlias = false;
+
     /**
      * DookiRequest constructor.
      *
@@ -42,6 +44,12 @@ class DookiRequest extends DookiAuth
     public function getVersion()
     {
         return $this->version;
+    }
+
+    public function forceAlias()
+    {
+        $this->forceAlias = true;
+        return $this;
     }
 
     /**
@@ -317,7 +325,7 @@ class DookiRequest extends DookiAuth
 
         $ignoredPaths = ['auth', 'users', 'pvt'];
 
-        if (!in_array($fragments[0], $ignoredPaths)) {
+        if (!in_array($fragments[0], $ignoredPaths) || $this->forceAlias) {
             $this->route = $this->merchant . $this->route;
         }
 
