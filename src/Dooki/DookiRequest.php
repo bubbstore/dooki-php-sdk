@@ -333,10 +333,12 @@ class DookiRequest extends DookiAuth
 
         $ignoredPaths = ['auth', 'users', 'pvt'];
 
-        if ((!in_array($fragments[0], $ignoredPaths) || $this->forceAlias) && !$this->forgetAlias) {
-            $this->route = $this->merchant . $this->route;
+        if (!$this->forgetAlias) {
+            if ((!in_array($fragments[0], $ignoredPaths) || $this->forceAlias)) {
+                $this->route = $this->merchant . $this->route;
+            }
         }
-        
+
         return $this->api . '/'.$this->getVersion() . $this->route;
     }
 
