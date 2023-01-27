@@ -357,6 +357,7 @@ class DookiRequest extends DookiAuth
 
         if ($this->getAuthTokenType() == 'user-token') {
             $headers['User-Token'] = $this->getAuthToken();
+            $headers['User-Secret-Key'] = $this->getUserSecretKey();
         }
 
         $headers['User-Agent'] = $this->getUserAgent();

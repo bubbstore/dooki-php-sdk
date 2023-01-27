@@ -8,6 +8,8 @@ class DookiAuth
 {
     private $authToken = null;
 
+    private $userSecretKey = null;
+
     private $authTokenType = null;
 
     private $user;
@@ -100,5 +102,17 @@ class DookiAuth
         $this->setAuthTokenType('user-token');
 
         return $this;
+    }
+
+    public function setUserSecretKey($value)
+    {
+        $this->userSecretKey = $value;
+
+        return $this;
+    }
+
+    public function getUserSecretKey()
+    {
+        return $this->userSecretKey;
     }
 }
